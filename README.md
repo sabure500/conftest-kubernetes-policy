@@ -1,0 +1,2 @@
+# conftest-kubernetes-policy
+ConftestによってKubernetesのマニフェストファイルにPolicyをかける
