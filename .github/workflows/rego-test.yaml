@@ -1,11 +1,8 @@
 name: rego-test
-on:
-  push:
-    branches:
-      - development
+on: push
 
 env:
-  PEN_POLICY_AGENT_VERSION: 0.20.4
+  OPEN_POLICY_AGENT_VERSION: 0.20.4
 
 jobs:
   rego-test:
@@ -16,7 +13,7 @@ jobs:
       
       - name: Open Policy Agent Setup
         run: |-
-          curl -sL https://openpolicyagent.org/downloads/v$PEN_POLICY_AGENT_VERSION/opa_linux_amd64 -o opa
+          curl -sL https://openpolicyagent.org/downloads/v$OPEN_POLICY_AGENT_VERSION/opa_linux_amd64 -o opa
           chmod u+x opa
           ./opa --help
 
