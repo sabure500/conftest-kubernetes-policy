@@ -1,0 +1,22 @@
+name: rego-test
+on: push
+
+env:
+  OPEN_POLICY_AGENT_VERSION: 0.20.4
+
+jobs:
+  rego-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      
+      - name: Open Policy Agent Setup
+        run: |-
+          curl -sL https://openpolicyagent.org/downloads/v$OPEN_POLICY_AGENT_VERSION/opa_linux_amd64 -o opa
+          chmod u+x opa
+          ./opa --help
+
+      - name: Rego test
+        run: |-
+          ./opa test . -v
