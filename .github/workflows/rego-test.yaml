@@ -8,7 +8,7 @@ jobs:
   rego-test:
     runs-on: ubuntu-latest
     container: 
-      image: openpolicyagent/opa:0.20.4
+      image: us.gcr.io/vast-dock-259309/open-policy-agent
     steps:
       - name: Checkout
         uses: actions/checkout@v2
