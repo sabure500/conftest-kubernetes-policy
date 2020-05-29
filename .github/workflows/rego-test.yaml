@@ -5,30 +5,21 @@ on:
       - development
 
 env:
-  GCP_PROJECT: ${{secrets.GCP_PROJECT}}
-  ZONE: us.gcr.io
-  IMAGE: open-policy-agent
-  VERSION: 0.20.4
-  SA_JSON_KEY: ${{ secrets.SA_JSON_KEY }}
+  PEN_POLICY_AGENT_VERSION: 0.20.4
 
 jobs:
   rego-test:
     runs-on: ubuntu-latest
-    steps: 
-      - name: GCR login
-        run: |-
-          echo $SA_JSON_KEY | docker login -u _json_key --password-stdin https://$ZONE
-
-    container: 
-      image: $ZONE/$GCP_PROJECT/$IMAGE:$VERSION
     steps:
       - name: Checkout
         uses: actions/checkout@v2
       
-      - name: opa version
-        run: opa version
-
-      - name: rego-test
+      - name: Open Policy Agent Setup
         run: |-
-          ls -l
-          opa test . -v
+          curl -sL https://openpolicyagent.org/downloads/v$PEN_POLICY_AGENT_VERSION/opa_linux_amd64 -o opa
+          chmod u+x opa
+          ./opa --help
+
+      - name: Rego test
+        run: |-
+          ./opa test . -v
