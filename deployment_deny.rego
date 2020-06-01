@@ -41,7 +41,8 @@ exists_memory_requests = false {
 # コンテナのメモリ使用率のリミット・リクエストが規定値(2000Mi)よりも小さいか確認するルール
 # どちらか値が2000Miを超えている場合はtrue
 # どちら共の値が2000Mi以下の場合はfalse
-# units.parse_bytesはOPA_v0.18までは末尾にB必須,OPA_v0.20では末尾にB不要
+# OPA_v0.20では末尾にB不要、それ以前は末尾にB必須
+# conftest v0.18.2 はOPA v0.19 に依存している
 below_reguration_memory_size {
     memory_size := input.spec.template.spec.containers[_].resources.limits.memory
     memory_size_byte := units.parse_bytes(memory_size)

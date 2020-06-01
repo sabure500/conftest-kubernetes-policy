@@ -124,3 +124,43 @@ test_not_below_reguration_memory_size2 {
     }
     below_reguration_memory_size with input as input
 }
+
+# 規定のコンテナレジストリを利用している場合はfalse
+test_use_regulation_registry {
+    input := 
+    {
+    "kind": "Deployment",
+    "spec": {
+        "template": {
+            "spec": {
+                "containers": [
+                    {
+                        "image": "us.gcr.io/conftest-sample:latest"
+                        }
+                    ]
+               }
+            }
+        }
+    }
+    not use_regulation_registry with input as input
+}
+
+# 規定外のコンテナレジストリを利用している場合はtrue
+test_not_use_regulation_registry {
+    input := 
+    {
+    "kind": "Deployment",
+    "spec": {
+        "template": {
+            "spec": {
+                "containers": [
+                    {
+                        "image": "docker.io/conftest-sample:latest"
+                        }
+                    ]
+               }
+            }
+        }
+    }
+    use_regulation_registry with input as input
+}
